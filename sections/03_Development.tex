@@ -1,0 +1,90 @@
+\section{Ontology Development}
+
+In response, we set out to develop a vocabulary which could be used by designers and developers as a tool to easily design and communicate different models of synchronous audio engagements, describe existing technologies, and highlight other novel ways in which such platforms could be used. As such, we decided to produce two outputs: a formal ontology called Scaffolding Interactions through Synchronous Telephony (\ONT{}), which would define the terms for the necessary system components and how they interact; and a design vocabulary built upon \ONT{}, supporting less technical stakeholders in exploring potential designs and identifying their strengths, weaknesses and requirements through a visual format reminiscent of Twilio's Studio interface.
+
+Costa et al. argue that following ontology engineering methods tends to result in higher quality ontologies, as they encourage the adoption of best practices and support the identification of user requirements \cite{costa2021}. However, their systematic review of HCI ontologies found that only 3 of the 35 HCI ontologies they analysed were developed using one. Two of these were developed using NeOn: a framework which provides 9 methodology configurations for various use-case scenarios \cite{gomez2009, suarez2012}. These scenarios offer different procedures based on how much the new ontology should reuse or re-engineer existing ontological resources: from generating a new ontology from scratch, to the extension, adaptation, or even localisation of existing ontologies. As this scenario system provides a clear step-by-step methodology, we decided to use NeOn to develop \ONT{}.
+
+As one of the key strengths of formal ontologies is that they can be extended, re-used, and made compatible with each other \cite{scherp2011}, we wanted to build upon existing core concepts: adding our own domain-level axioms relating to synchronous audio engagements on top of existing ontological resources. As such, we decided that NeOn's third scenario, `\textit{Reusing Ontological Resources}', is most suitable for that purpose. Ontologies in this scenario \cite{suarez2012_reuse} should be produced through the following procedure: requirements specification for the new ontology---including its purpose, scope, and intended users---through the generation of competency questions (CQs) and non-functional requirements; reformulating the CQs to support the identification of `linking axioms' in existing ontologies; searching for and identifying ontologies which can fulfill these linking axioms, and then engineering the new ontology through an appropriate development process. This section describes the outputs of each section of this methodology.
+
+\subsection{Requirements Specification}
+The key questions of the NeOn requirements specification activity \cite{suarez2012_requirements}, and our responses to them, are as follows: 
+
+\subsubsection{What is the goal of the ontology?}
+To describe the key infrastructure and logical components of a platform that supports one or more models of synchronous group telephony, without requiring complete re-engineering for each different engagement format.
+
+\subsubsection{Who are its intended users?}
+Software engineers, HCI researchers and designers.
+
+\subsubsection{What are its intended uses?} To support the conceptualisation, visualisation, and communication of synchronous group telephony systems and interactions: to ease the burden of designing and building them and support the exploration of them as a design space.
+
+
+\subsubsection{What are the requirements it should fulfill?}
+ 
+To respond to this question, we analysed the established design patterns (i.e. the talk show format) and functionality used by previous projects in the space \cite{Kazakos2016, Talhouk2017, Yadav2017}, as discussed in \ref{section:talkshow}. To support the talk show format, these platforms use much of the base functionality made readily available by software such as FreeSWITCH: dialing and disconnecting callers; muting and unmuting individuals; transferring callers into a single `conference' group call; and recording and playing back audio files---either to individuals or everyone on the call. To be of use, these functions need to be mediated by an application with which the host can interact. Our ontology would need to describe these functions, as well as how they could be combined and utilised either programmatically or manually by the host to support various (and even novel, unexplored within this context) engagement formats, without each different format requiring a full platform re-write.
+
+Given the answers to the previous questions, the non-functional requirements for \ONT{} are:
+
+\begin{itemize}
+    \item NFR1: The ontology should feature a separation of concerns between the technical infrastructure that supports base phone call functionality, and the application logic that implements activity procedure.
+    \item NFR2: The axioms describing these activities should also be able to be configured in a way which can be used to easily design and communicate activity processes in a visually intuitive format.
+    \item NFR3: The ontology should feature enough detail and scope to adequately describe the key components of a platform's required architecture and engagements held through it, but not so much to as inhibit design explorations.
+\end{itemize}
+
+To determine the functional requirements, NeOn recommends using the prior answers to generate competency questions which the ontology should be able to address, and organising them into categories. For \ONT{}, 56 CQs were developed by the two lead authors. These were then categorised through an inductive card sorting activity into 3 themed groups: `Activity Procedure \& Implementation', `Current State', and `Engagement Data'. A selection of CQs from each group can be seen in Tables \ref{tab:CQ_activity}, \ref{tab:CQ_state}, and \ref{tab:CQ_data}.
+
+\begin{table}
+  \caption{Example Competency Questions: Activity Procedure \& Implementation}
+  \label{tab:CQ_activity}
+  \begin{tabular}{cll}
+    \toprule
+    CQ\#&Question&Example Response\\
+    \midrule
+    1&What is the next procedure in the activity?&Play an audio file\\
+    2&What will cause the next procedure to start?&Host presses a button\\
+    3&What should happen when participant X presses button 5?&Raise their hand\\
+    4&Which participants should be muted?&All except the host\\
+    5&What functionality is required to support a pre-show routine?&Play/Stop audio, Mute\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{Example Competency Questions: Current State}
+  \label{tab:CQ_state}
+  \begin{tabular}{cll}
+    \toprule
+    CQ\#&Question&Example Response\\
+    \midrule
+    6&Which participants are in the call?&List of participants\\
+    7&Which participants have their hands raised?&List of participants\\
+    8&Which participants are muted?&List of participants\\
+    9&Has the host joined the call?&False\\
+    10&Which participants are currently speaking?&List of participants\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}
+  \caption{Example Competency Questions: Engagement Data}
+  \label{tab:CQ_data}
+  \begin{tabular}{cll}
+    \toprule
+    CQ\#&Question&Example Response\\
+    \midrule
+    11&When did participant X join the current call?&2023/03/26 14:01\\
+    12&Which participants joined the current call, but have left?&List of participants\\
+    13&Which participants' questions went unaddressed?&List of participants\\
+    14&Where is participant X’s recording stored?&Filepath\\
+    15&Which errors occurred during the last engagement?&Badly formatted number\\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Reusing Ontological Resources}
+% \begin{sloppypar}
+NeOn also recommends researching which existing ontological resources could be adapted or expanded upon, which can both avoid `reinventing the wheel' \cite{suarez2012} and support extensibility and use alongside other vocabularies within a network by avoiding the introduction of new core concepts \cite{scherp2011}. All of \ONT{}'s axioms are built upon two previously established ontological resources: Friend of a Friend (aka `\textit{foaf}': an ontology describing people, their activities and their relations to other people and objects\footnote{\url{http://xmlns.com/foaf/0.1/}}) and Semantically Interlinked Online Communities (aka `\textit{sioc}': an ontology which builds on \textit{foaf} to describe online community spaces, such as forums\footnote{\url{http://rdfs.org/sioc/spec/}}). These existing ontologies were deemed suitable to be used as core vocabularies from which to develop \ONT{}, as they are already used to describe the configurations of virtual discussion spaces (e.g. the axioms \textit{sioc:Space}, \textit{sioc:Site}, \textit{sioc:Container}), the users and systems who interact with them (\textit{foaf:Agent}, \textit{sioc:UserAccount}, \textit{sioc:Usergroup}), and the data produced by these interactions (\textit{foaf:Document}, \textit{sioc:Item}).
+% \end{sloppypar}
+
+\subsection{Iterative-Incremental Development Cycle}
+
+As we aimed for \ONT{} to describe an underexplored domain with uncertain requirements, we chose to follow the iterative development cycle recommended within the NeOn methodology. \ONT{} went through three major revisions of development by this paper's first two authors: each revision building towards fulfilling a greater number of competency questions, before undergoing review with the other authors. To facilitate communication with authors unfamiliar with OWL, these reviews utilised visual representations of \ONT{} generated with draw.io\footnote{\url{https://app.diagrams.net/}} (as shown in Figure \ref{fig:drawio}). For the sake of clarity and brevity, these diagrams excluded the base-level \textit{foaf} and \textit{sioc} axioms (the full class hierarchy is visible in Figure \ref{fig:hierarchy}). 
