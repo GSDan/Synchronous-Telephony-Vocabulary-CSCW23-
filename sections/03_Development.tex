@@ -39,7 +39,7 @@ To determine the functional requirements, NeOn recommends using the prior answer
     \toprule
     CQ\#&Question&Example Response\\
     \midrule
-    1&What is the next procedure in the activity?&Play an audio file\\
+    1&What is the next item in the activity agenda?&Play an audio file\\
     2&What will cause the next procedure to start?&Host presses a button\\
     3&What should happen when participant X presses button 5?&Raise their hand\\
     4&Which participants should be muted?&All except the host\\
@@ -81,10 +81,30 @@ To determine the functional requirements, NeOn recommends using the prior answer
 \end{table}
 
 \subsection{Reusing Ontological Resources}
-% \begin{sloppypar}
-NeOn also recommends researching which existing ontological resources could be adapted or expanded upon, which can both avoid `reinventing the wheel' \cite{suarez2012} and support extensibility and use alongside other vocabularies within a network by avoiding the introduction of new core concepts \cite{scherp2011}. All of \ONT{}'s axioms are built upon two previously established ontological resources: Friend of a Friend (aka `\textit{foaf}': an ontology describing people, their activities and their relations to other people and objects\footnote{\url{http://xmlns.com/foaf/0.1/}}) and Semantically Interlinked Online Communities (aka `\textit{sioc}': an ontology which builds on \textit{foaf} to describe online community spaces, such as forums\footnote{\url{http://rdfs.org/sioc/spec/}}). These existing ontologies were deemed suitable to be used as core vocabularies from which to develop \ONT{}, as they are already used to describe the configurations of virtual discussion spaces (e.g. the axioms \textit{sioc:Space}, \textit{sioc:Site}, \textit{sioc:Container}), the users and systems who interact with them (\textit{foaf:Agent}, \textit{sioc:UserAccount}, \textit{sioc:Usergroup}), and the data produced by these interactions (\textit{foaf:Document}, \textit{sioc:Item}).
+
+Adapting or expanding upon existing ontological resources can both avoid `reinventing the wheel' \cite{suarez2012} and support extensibility and use alongside other vocabularies within a network \cite{scherp2011}. To select appropriate ontologies, NeOn recommends reformulating the initial competency questions with new, more generic terms `\textit{that could potentially belong to ontologies to be reused}' and to `\textit{identify axioms that link terms of the CQs to terms that could be reused}' \cite{suarez2012_reuse}. Examples of how we adapted our CQs to find more generic terms can be seen in Table \ref{tab:CQ_reformed}. Once some potential axioms were developed, we then searched for ontologies which implemented them, rewording them if unsuccessful (failed alternatives are included in Table \ref{tab:CQ_reformed}). Unfortunately a number of the Semantic Web search engines recommended by the NeOn authors are now offline, however we were able to successfully use a combination of Google and Linked Open Vocabularies\footnote{\url{https://lov.linkeddata.es/dataset/lov}} to find a wide array of popular ontologies. Once a potential axiom had been found, the rest of that ontology was browsed for other matches, or more suitable axioms which had not been thought of during the reformation process.
+
+\begin{table}
+  \caption{Example Reformed Competency Questions}
+  \label{tab:CQ_reformed}
+  \begin{tabular}{p{3.2cm} p{3cm} p{2.8cm} p{3cm} }
+    \toprule
+    Case&CQ&Action&Result\\
+    \midrule
+    Want to know the participants in given a group call&Which participants are in the call?&Participants$\rightarrow$ \newline callers/people;\newline Call$\rightarrow$ room/space&Which people are in the space?\\ 
+    \midrule
+    Want to know the storage location of a participant's recording&Where is participant X’s recording stored?&Where$\rightarrow$ space/location\newline Recording$\rightarrow$ file/data/document&In what space is user X’s document stored?\\ 
+    \midrule
+    Want to know the next item to be active in the activity procedure&What is the next item in the activity agenda?&Agenda$\rightarrow$\newline list/plan/container&What is the next item in the container?\\ 
+  \bottomrule
+\end{tabular}
+\end{table}
+
+
+Two existing ontologies were found to be particularly suitable: Friend of a Friend (aka `\textit{foaf}': an ontology describing people, their activities and their relations to other people and objects\footnote{\url{http://xmlns.com/foaf/0.1/}}) and Semantically Interlinked Online Communities (aka `\textit{sioc}': an ontology which builds on \textit{foaf} to describe online community spaces, such as forums\footnote{\url{http://rdfs.org/sioc/spec/}}). These existing ontologies were deemed suitable to be used as core vocabularies from which to develop \ONT{}, as they are already used to describe the configurations of virtual discussion spaces (e.g. the axioms \textit{sioc:Space}, \textit{sioc:Site}, \textit{sioc:Container}), the users and systems who interact with them (\textit{foaf:Agent}, \textit{sioc:UserAccount}, \textit{sioc:Usergroup}), and the data produced by these interactions (\textit{foaf:Document}, \textit{sioc:Item}).
 % \end{sloppypar}
 
 \subsection{Iterative-Incremental Development Cycle}
 
-As we aimed for \ONT{} to describe an underexplored domain with uncertain requirements, we chose to follow the iterative development cycle recommended within the NeOn methodology. \ONT{} went through three major revisions of development by this paper's first two authors: each revision building towards fulfilling a greater number of competency questions, before undergoing review with the other authors. To facilitate communication with authors unfamiliar with OWL, these reviews utilised visual representations of \ONT{} generated with draw.io\footnote{\url{https://app.diagrams.net/}} (as shown in Figure \ref{fig:drawio}). For the sake of clarity and brevity, these diagrams excluded the base-level \textit{foaf} and \textit{sioc} axioms (the full class hierarchy is visible in Figure \ref{fig:hierarchy}). 
+NeOn has two recommended models for ontology development: waterfall, which is a linear development model, ideal for contexts where the requirements for the ontology are unchangeable, known and unambiguous; and the `iterative-incremental' model, which is well suited when requirements are not fully understood or may change \cite{suarez2012}.
+For our chosen scenario, NeOn actually recommends using the waterfall method. However, as we aimed for \ONT{} to describe an underexplored domain with uncertain requirements, we instead chose to follow the iterative-incremental development cycle. \ONT{} went through three major revisions of development by this paper's first two authors: each revision building towards fulfilling a greater number of competency questions, before undergoing review with the other authors. To facilitate communication with authors unfamiliar with OWL, these reviews utilised visual representations of \ONT{} generated with draw.io\footnote{\url{https://app.diagrams.net/}} (as shown in Figure \ref{fig:drawio}). For the sake of clarity and brevity, these diagrams excluded the base-level \textit{foaf} and \textit{sioc} axioms (the full class hierarchy is visible in Figure \ref{fig:hierarchy}). 
